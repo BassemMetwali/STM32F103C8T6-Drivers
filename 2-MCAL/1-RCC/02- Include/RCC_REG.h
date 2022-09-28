@@ -28,7 +28,7 @@ volatile uint32	RCC_CSR;        /* Control/Status Register */
 
 }RCC;
 
-#define RCC ((volatile RCC *)0x40021000)
+#define RCC ((volatile RCC*)0x40021000)
 
 
 

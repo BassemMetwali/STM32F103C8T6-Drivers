@@ -16,6 +16,8 @@
 #include"RCC_PRIVATE.h"
 #include"RCC_REG.h"
 
+
+
 /*
  * Description :
  * Enable any peripheral on Buses.
@@ -110,6 +112,20 @@ void RCC_Enable_RTC(void){
 	SET_BIT(RCC -> RCC_BDCR, RTCEN); //Enable RTC.
 }
 
+/**
+  * @brief  Returns the clock source used as system clock.
+  * @param  None
+  * @retval The clock source used as system clock. The returned value can
+  *   be one of the following:
+  *     - 0x00: HSI used as system clock
+  *     - 0x04: HSE used as system clock
+  *     - 0x08: PLL used as system clock
+  */
+uint8 RCC_getSYSCLKSource(void)
+{
+  return ((uint8)(RCC->RCC_CFGR & CFGR_SWSMask));
+}
+
 void RCC_MCO(uint8 MCO_clockSource)
 {
 	switch(MCO_clockSource)
@@ -193,26 +209,27 @@ void RCC_HSE_RC(void)
 }
 void RCC_HSE_Crystal(void)
 {
+
 	/* The HSEBYP Can Be Written Only When HSE Oscilator Is Disabled */
 			/* HSE Clock Disabled */
-	        CLEAR_BIT( RCC->RCC_CR   , HSEON );
+	    //   CLEAR_BIT( RCC->RCC_CR   , HSEON );
 
 			/* BIT 18 -> To Select HSE BYPASS */
 			/* HSEBYPASS Clock Disable */
-			CLEAR_BIT( RCC->RCC_CR , HSEBYP );
+		//	CLEAR_BIT( RCC->RCC_CR , HSEBYP );
 
 			/* BIT 1:0 -> Choose Between HSI OR HSE OR PLL */
 			/* HSE Selected As A System Clock */
-			SET_BIT( RCC->RCC_CFGR , SW0  );
-			CLEAR_BIT( RCC->RCC_CFGR , SW1  );
+		//	SET_BIT( RCC->RCC_CFGR , SW0  );
+		//	CLEAR_BIT( RCC->RCC_CFGR , SW1  );
 
 			/* Bit 16 -> Enable The HSE Clock */
-			SET_BIT( RCC->RCC_CR   , HSEON );
-	/* RCC->RCC_CFGR=(1<<SW0);
-	 * RCC->RCC_CR=(1<<HSEON);
-	 * while (BIT_IS_CLEAR(RCC->RCC_CR,HSERDY) );
-	 * RCC->RCC_CIR=(1<<HSERDYC);
-	 */
+		//	SET_BIT( RCC->RCC_CR   , HSEON );
+	 RCC->RCC_CFGR=(1<<SW0);
+	 RCC->RCC_CR=(1<<HSEON);
+	 while (BIT_IS_CLEAR(RCC->RCC_CR,HSERDY) );
+	  RCC->RCC_CIR=(1<<HSERDYC);
+
 }
 
 

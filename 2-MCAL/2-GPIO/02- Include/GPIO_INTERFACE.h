@@ -40,6 +40,8 @@
 #define HIGH_PORT 0XFFFF
 #define LOW_PORT   0
 
+#define LOW_PINS   0
+#define HIGH_PINS  1
 
 
 /**********************************************************************/
@@ -131,5 +133,8 @@ uint16 GPIO_readPort(uint8 port_num);
 uint8   GPIO_togglePinValue (uint8 port_num, uint8 pin_num);
 void GPIO_enablePortClock (uint8 port_num);
 
+void GPIO_setPortDirection_H_L( uint8 Port , uint8 Position , uint8 Mode );
+
+void GPIO_setPortValue_H_L( uint8 Port , uint8 Position , uint16 Value );
 
 #endif

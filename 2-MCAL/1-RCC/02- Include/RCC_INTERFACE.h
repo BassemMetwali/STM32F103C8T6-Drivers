@@ -356,12 +356,16 @@
 #define USB_PLL_clock_is_divided_by_OneHalf   0
 #define USB_PLL_clock_is_not_divided          1
 
+#define  CFGR_SWSMask (0x0000000C)
+
+
 void RCC_enablePeripheral (uint8 peripheral_bus, uint8 peripheral_name);
 void RCC_disablePeripheral(uint8 peripheral_bus, uint8 peripheral_name);
 void RCC_enable8MHzHSI(void);
 void RCC_enableHSE(void);
 void RCC_enablePLL(uint8 clocksource, uint8 PLL_Value);
 void RCC_Enable_RTC(void);
+uint8 RCC_getSYSCLKSource(void);
 void RCC_MCO(uint8 MCO_clockSource);
 void RCC_AHBPrescaler(uint8 AHB_PrescalerValue);
 void RCC_APB1Prescaler(uint8 APB1_PrescalerValue);
